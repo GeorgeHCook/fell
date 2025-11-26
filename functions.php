@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plant Ex Theme Functions
+ * Fell Studio Theme Functions
  *
  * @package PlantEx
  */

@@ -6,5 +6,5 @@ if (import.meta.hot) {
   import.meta.hot.accept();
 }
 
-console.log('Plant Ex Theme loaded with Vite + Tailwind CSS v4');
+console.log('Fell Studio Theme loaded with Vite + Tailwind CSS v4');
 
