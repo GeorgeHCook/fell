@@ -5,7 +5,7 @@
  *
  * Handles loading Vite assets in development and production modes
  *
- * @package PlantEx
+ * @package FellStudio
  */
 
 // Prevent direct access
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
  *
  * @return bool
  */
-function plant_ex_is_vite_development()
+function fell_studio_is_vite_development()
 {
     // Check if manifest.json exists - if not, assume dev mode
     $manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
@@ -39,9 +39,9 @@ function plant_ex_is_vite_development()
  * @param string $entry The entry point file (e.g., 'main.js')
  * @return string|false The asset URL or false if not found
  */
-function plant_ex_get_vite_asset($entry)
+function fell_studio_get_vite_asset($entry)
 {
-    if (plant_ex_is_vite_development()) {
+    if (fell_studio_is_vite_development()) {
         // Development mode - return Vite dev server URL
         return 'http://localhost:5173/src/' . $entry;
     }
@@ -66,9 +66,9 @@ function plant_ex_get_vite_asset($entry)
 /**
  * Enqueue Vite assets
  */
-function plant_ex_enqueue_vite_assets()
+function fell_studio_enqueue_vite_assets()
 {
-    $is_dev = plant_ex_is_vite_development();
+    $is_dev = fell_studio_is_vite_development();
 
     if ($is_dev) {
         // Development mode - Directly output Vite scripts in footer
@@ -95,7 +95,7 @@ function plant_ex_enqueue_vite_assets()
             if (isset($main_js['css'])) {
                 foreach ($main_js['css'] as $css_file) {
                     wp_enqueue_style(
-                        'plant-ex-style',
+                        'fell-studio-style',
                         get_template_directory_uri() . '/dist/' . $css_file,
                         array(),
                         null
@@ -105,7 +105,7 @@ function plant_ex_enqueue_vite_assets()
 
             // Enqueue main JS
             wp_enqueue_script(
-                'plant-ex-main',
+                'fell-studio-main',
                 get_template_directory_uri() . '/dist/' . $main_js['file'],
                 array(),
                 null,
@@ -114,7 +114,7 @@ function plant_ex_enqueue_vite_assets()
 
             // Add module type attribute
             add_filter('script_loader_tag', function ($tag, $handle) {
-                if ($handle === 'plant-ex-main') {
+                if ($handle === 'fell-studio-main') {
                     $tag = str_replace('<script ', '<script type="module" ', $tag);
                 }
                 return $tag;
